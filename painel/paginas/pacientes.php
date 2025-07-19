@@ -83,11 +83,13 @@ if(@$pacientes == 'ocultar'){
 
 
 							<div class="col-md-2">	
-								<label>Sexo</label>
+								<label>Gênero</label>
 								<select class="form-control" name="sexo" id="sexo">
-									<option value="M">M</option>
-									<option value="F">F</option>
-									
+									<option value="M">Cis Masc</option>
+									<option value="F">Cis Fem</option>
+									<option value="T">Trans Masc</option>
+									<option value="T">Trans Fem</option>
+									<option value="O">Outros</option>
 								</select>						
 							</div>
 
@@ -96,10 +98,14 @@ if(@$pacientes == 'ocultar'){
 							<div class="col-md-2">	
 								<label>Tipo Sanguíneo</label>
 								<select class="form-control" name="tipo_sanguineo" id="tipo_sanguineo">
-									<option value="O">O</option>
-									<option value="A">A</option>
-									<option value="B">B</option>
-									<option value="AB">AB</option>
+									<option value="O">O+</option>
+									<option value="O">O-</option>
+									<option value="A">A+</option>
+									<option value="A">A-</option>
+									<option value="B">B+</option>
+									<option value="B">B-</option>
+									<option value="AB">AB+</option>
+									<option value="AB">AB-</option>
 								</select>						
 							</div>
 
