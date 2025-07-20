@@ -24,7 +24,7 @@ if($url[1] == 'localhost/'){
 
 
 //variaveis globais
-$nome_sistema = 'Clínica Médica';
+$nome_sistema = 'MedCenter';
 $email_sistema = 'contato@medcenter.com.br';
 $telefone_sistema = '(16)99992-7427';
 

@@ -157,32 +157,32 @@ $data_atual = date('Y-m-d');
 							<span class="icon-bar"></span>
 							<span class="icon-bar"></span>
 						</button>
-						<h1><a class="navbar-brand" href="index.php"><span class="fa fa-stethoscope"></span> Sistema<span class="dashboard_text"><?php echo $nome_sistema ?></span></a></h1>
+						<h1><a class="navbar-brand" href="index.php"><span class="fa fa-stethoscope"></span> MedCenter<span class="dashboard_text"><?php echo $nome_sistema ?></span></a></h1>
 					</div>
 					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 						<ul class="sidebar-menu">
 							<li class="header">MENU NAVEGAÇÃO</li>
-							<li class="treeview <?php echo $home ?>">
+							<li class="treeview <?php echo @$home ?>">
 								<a href="index.php">
 									<i class="fa fa-dashboard"></i> <span>Home</span>
 								</a>
 							</li>
-							<li class="treeview <?php echo $menu_pessoas ?>">
+							<li class="treeview <?php echo @$menu_pessoas ?>">
 								<a href="#">
 									<i class="fa fa-users"></i>
 									<span>Pessoas</span>
 									<i class="fa fa-angle-left pull-right"></i>
 								</a>
 								<ul class="treeview-menu">
-									<li class="<?php echo $usuarios ?>"><a href="index.php?pagina=usuarios"><i class="fa fa-angle-right"></i> Usuários</a></li>
+									<li class="<?php echo @$usuarios ?>"><a href="usuarios"><i class="fa fa-angle-right"></i> Usuários</a></li>
 									
-									<li class="<?php echo $funcionarios ?>"><a href="index.php?pagina=funcionarios"><i class="fa fa-angle-right"></i> Funcionários</a></li>
+									<li class="<?php echo @$funcionarios ?>"><a href="funcionarios"><i class="fa fa-angle-right"></i> Funcionários</a></li>
 
-									<li class="<?php echo $pacientes ?>"><a href="index.php?pagina=pacientes"><i class="fa fa-angle-right"></i> Pacientes</a></li>
+									<li class="<?php echo @$pacientes ?>"><a href="pacientes"><i class="fa fa-angle-right"></i> Pacientes</a></li>
 								</ul>
 							</li>
 
-							<li class="treeview <?php echo $menu_cadastros ?>">
+							<li class="treeview <?php echo @$menu_cadastros ?>">
 								<a href="#">
 									<i class="fa fa-plus"></i>
 									<span>Cadastros</span>
@@ -190,32 +190,32 @@ $data_atual = date('Y-m-d');
 								</a>
 								<ul class="treeview-menu">
 
-									<li class="<?php echo $procedimentos ?>"><a href="index.php?pagina=procedimentos"><i class="fa fa-angle-right"></i> Procedimentos</a></li>
+									<li class="<?php echo @$procedimentos ?>"><a href="procedimentos"><i class="fa fa-angle-right"></i> Procedimentos</a></li>
 
-									<li class="<?php echo $convenios ?>"><a href="index.php?pagina=convenios"><i class="fa fa-angle-right"></i> Convênio / Plano</a></li>
+									<li class="<?php echo @$convenios ?>"><a href="convenios"><i class="fa fa-angle-right"></i> Convênio / Plano</a></li>
 
-									<li class="<?php echo $cargos ?>"><a href="index.php?pagina=cargos"><i class="fa fa-angle-right"></i> Cargos</a></li>
+									<li class="<?php echo @$cargos ?>"><a href="cargos"><i class="fa fa-angle-right"></i> Cargos</a></li>
 
-									<li class="<?php echo $formas_pgto ?>"><a href="index.php?pagina=formas_pgto"><i class="fa fa-angle-right"></i> Formas de Pagamento</a></li>
+									<li class="<?php echo @$formas_pgto ?>"><a href="formas_pgto"><i class="fa fa-angle-right"></i> Formas de Pagamento</a></li>
 
-									<li class="<?php echo $grupo_acessos ?>"><a href="index.php?pagina=grupo_acessos"><i class="fa fa-angle-right"></i> Grupos</a></li>
+									<li class="<?php echo @$grupo_acessos ?>"><a href="grupo_acessos"><i class="fa fa-angle-right"></i> Grupos</a></li>
 
-									<li class="<?php echo $acessos ?>"><a href="index.php?pagina=acessos"><i class="fa fa-angle-right"></i> Acessos</a></li>
-
-
-									<li class="<?php echo $frequencias ?>"><a href="index.php?pagina=frequencias"><i class="fa fa-angle-right"></i> Frequências</a></li>
+									<li class="<?php echo @$acessos ?>"><a href="acessos"><i class="fa fa-angle-right"></i> Acessos</a></li>
 
 
-									<li class="<?php echo $grupos_ana ?>"><a href="index.php?pagina=grupos_ana"><i class="fa fa-angle-right"></i> Grupos Anamnese</a></li>
+									<li class="<?php echo @$frequencias ?>"><a href="frequencias"><i class="fa fa-angle-right"></i> Frequências</a></li>
 
-									<li class="<?php echo $itens_ana ?>"><a href="index.php?pagina=itens_ana"><i class="fa fa-angle-right"></i> Itens Anamnese</a></li>
+
+									<li class="<?php echo @$grupos_ana ?>"><a href="grupos_ana"><i class="fa fa-angle-right"></i> Grupos Anamnese</a></li>
+
+									<li class="<?php echo @$itens_ana ?>"><a href="itens_ana"><i class="fa fa-angle-right"></i> Itens Anamnese</a></li>
 									
 								</ul>
 							</li>
 
 
 
-							<li class="treeview <?php echo $menu_financeiro ?>">
+							<li class="treeview <?php echo @$menu_financeiro ?>">
 								<a href="#">
 									<i class="fa fa-usd"></i>
 									<span>Financeiro</span>
@@ -223,21 +223,21 @@ $data_atual = date('Y-m-d');
 								</a>
 								<ul class="treeview-menu">
 
-									<li class="<?php echo $receber ?>"><a href="index.php?pagina=receber"><i class="fa fa-angle-right"></i> Recebimentos</a></li>
+									<li class="<?php echo @$receber ?>"><a href="receber"><i class="fa fa-angle-right"></i> Recebimentos</a></li>
 
-									<li class="<?php echo $pagar ?>"><a href="index.php?pagina=pagar"><i class="fa fa-angle-right"></i> Despesas / Pagamentos</a></li>
-
-
-									<li class="<?php echo $comissoes ?>"><a href="index.php?pagina=comissoes"><i class="fa fa-angle-right"></i> Comissões</a></li>
+									<li class="<?php echo @$pagar ?>"><a href="pagar"><i class="fa fa-angle-right"></i> Despesas / Pagamentos</a></li>
 
 
-									<li class="<?php echo $recebimento_convenio ?>"><a href="" data-toggle="modal" data-target="#modalReceb"><i class="fa fa-angle-right"></i> Recebimento Convênio</a></li>
+									<li class="<?php echo @$comissoes ?>"><a href="comissoes"><i class="fa fa-angle-right"></i> Comissões</a></li>
 
 
-									<li class="<?php echo $rel_lucro ?>"><a href="" data-toggle="modal" data-target="#modalRelLucro"><i class="fa fa-angle-right"></i> Demonstrativo de Lucro</a></li>
+									<li class="<?php echo @$recebimento_convenio ?>"><a href="" data-toggle="modal" data-target="#modalReceb"><i class="fa fa-angle-right"></i> Recebimento Convênio</a></li>
 
 
-									<li class="<?php echo $rel_financeiro ?>"><a href="" data-toggle="modal" data-target="#modalRelFin"><i class="fa fa-angle-right"></i> Relatórios Financeiro</a></li>
+									<li class="<?php echo @$rel_lucro ?>"><a href="" data-toggle="modal" data-target="#modalRelLucro"><i class="fa fa-angle-right"></i> Demonstrativo de Lucro</a></li>
+
+
+									<li class="<?php echo @$rel_financeiro ?>"><a href="" data-toggle="modal" data-target="#modalRelFin"><i class="fa fa-angle-right"></i> Relatórios Financeiro</a></li>
 
 									
 									
@@ -247,39 +247,39 @@ $data_atual = date('Y-m-d');
 
 
 
-								<li class="treeview <?php echo $menu_agendamentos ?>">
+								<li class="treeview <?php echo @$menu_agendamentos ?>">
 								<a href="#">
 									<i class="fa fa-calendar"></i>
 									<span>Agendamentos</span>
 									<i class="fa fa-angle-left pull-right"></i>
 								</a>
 								<ul class="treeview-menu">
-									<li class="<?php echo $agendamentos ?>"><a href="index.php?pagina=agendamentos"><i class="fa fa-angle-right"></i> Agendamentos</a></li>
+									<li class="<?php echo @$agendamentos ?>"><a href="agendamentos"><i class="fa fa-angle-right"></i> Agendamentos</a></li>
 
 
-									<li class="<?php echo $rel_agendamentos ?>"><a href="" data-toggle="modal" data-target="#modalRelAgendamento"><i class="fa fa-angle-right"></i> Relatórios Agendamentos</a></li>
+									<li class="<?php echo @$rel_agendamentos ?>"><a href="" data-toggle="modal" data-target="#modalRelAgendamento"><i class="fa fa-angle-right"></i> Relatórios Agendamentos</a></li>
 									
 									
 								</ul>
 							</li>
 
-							<?php if($atendimento_usuario == 'Sim'){ ?>
+							<?php if(@$atendimento_usuario == 'Sim'){ ?>
 
-								<li class="treeview <?php echo $consultas ?>">
-								<a href="index.php?pagina=consultas">
+								<li class="treeview <?php echo @$consultas ?>">
+								<a href="consultas">
 									<i class="fa fa-stethoscope"></i> <span>Consultas</span>
 								</a>
 							</li>
 
-							<li class="treeview <?php echo $horarios ?>">
-								<a href="index.php?pagina=horarios">
+							<li class="treeview <?php echo @$horarios ?>">
+								<a href="horarios">
 									<i class="fa fa-clock-o"></i> <span>Dias / Horários</span>
 								</a>
 							</li>
 
 
-							<li class="treeview <?php echo $minhas_comissoes ?>">
-								<a href="index.php?pagina=minhas_comissoes">
+							<li class="treeview <?php echo @$minhas_comissoes ?>">
+								<a href="minhas_comissoes">
 									<i class="fa fa-money"></i> <span>Minhas Comissões</span>
 								</a>
 							</li>
@@ -341,7 +341,7 @@ $data_atual = date('Y-m-d');
 								
 								<li>
 									<div class="notification_bottom">
-										<a href="index.php?pagina=pagar">Ver todas as contas</a>
+										<a href="pagar">Ver todas as contas</a>
 									</div> 
 								</li>
 							</ul>
@@ -391,7 +391,7 @@ $data_atual = date('Y-m-d');
 								
 								<li>
 									<div class="notification_bottom">
-										<a href="index.php?pagina=pagar">Ver todas as contas</a>
+										<a href="receber">Ver todas as contas</a>
 									</div> 
 								</li>
 							</ul>
