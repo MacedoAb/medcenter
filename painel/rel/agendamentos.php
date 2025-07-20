@@ -104,7 +104,7 @@ if($marca_dagua == 'Sim'){ ?>
 		<table style="width: 100%; border: 0px solid #ccc;">
 			<tr>
 				<td style="border: 1px; solid #000; width: 7%; text-align: left;">
-					<img style="margin-top: 2px; margin-left: 7px;" id="imag" src="<?php echo $url_sistema ?>img/logo.jpg" width="76px">
+					<img style="margin-top: 2px; margin-left: 7px;" id="imag" src="<?php echo $url_sistema ?>img/logo.jpg" width="90px">
 				</td>
 				<td style="width: 30%; text-align: left; font-size: 13px;">
 					
