@@ -164,8 +164,7 @@ $data_atual = date('Y-m-d');
 							<li class="header">MENU NAVEGAÇÃO</li>
 							<li class="treeview <?php echo @$home ?>">
 								<a href="index.php">
-									<i class="fa fa-dashboard"></i> <span>Home</span>
-								</a>
+									<i class="fa fa-dashboard"></i> <span>Home</span></a>
 							</li>
 							<li class="treeview <?php echo @$menu_pessoas ?>">
 								<a href="#">
@@ -261,6 +260,11 @@ $data_atual = date('Y-m-d');
 									
 									
 								</ul>
+							</li>
+
+							<li class="treeview <?php echo @$calendario ?>">
+								<a href="calendario">
+									<i class="fa fa-calendar"></i> <span>Calendário Agenda</span></a>
 							</li>
 
 							<?php if(@$atendimento_usuario == 'Sim'){ ?>
