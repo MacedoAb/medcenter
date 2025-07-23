@@ -1,19 +1,21 @@
-<div class="modal fade" id="ModalAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="ModalAdd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static">
 		  <div class="modal-dialog modal-lg" role="document">
 			<div class="modal-content">
-			<form class="form-horizontal" method="POST" action="evento/action/eventoAdd.php" onsubmit="return validaForm(this);">
+			
 			
 			  <div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title" id="myModalLabel">Agendar Consulta</h4>
+				<h4 class="modal-title" id="myModalLabel">Agendar</h4>
 			  </div>
+
+			  <form method="post" id="form-text">
 			  <div class="modal-body">
 				
-				  <div class="row">
-						<div class="col-md-5">						
+					<div class="row">
+						<div class="col-md-5" >						
 							<div class="form-group"> 
 								<label>Paciente</label> 
-								<select class="form-control sel3" id="cliente" name="cliente" style="width:95%;" required> 
+								<select class="form-control sel2" id="cliente" name="cliente" style="width:95%;" required> 
 
 									<?php 
 									$query2 = $pdo->query("SELECT * FROM pacientes ORDER BY nome asc");
@@ -65,7 +67,7 @@
 						<div class="col-md-3">						
 							<div class="form-group"> 
 								<label>Procedimento</label> 
-								<select class="form-control sel3" id="servico" name="servico" style="width:95%;" required> 									
+								<select class="form-control sel2" id="servico" name="servico" style="width:100%;" required> 									
 
 								</select>    
 							</div>						
@@ -88,16 +90,15 @@
 						</div>						
 					</div>
 
-					<div class="col-md-2">						
-						<div class="form-group"> 
-							<label>Retorno</label>
-								<select class="form-control" id="retorno" name="retorno" >
+					<div class="col-md-2 ">
+							<div class="form-group">
+							<label>Retorno</label> 			
+								<select class="form-control" id="retorno" name="retorno"  >
 									<option value="Não">Não</option>
 									<option value="Sim">Sim</option>
-								</select>								
-						</div>						
-					</div>
-
+								</select>   
+							</div> 	
+						</div>
 
 
 					</div>
@@ -128,39 +129,248 @@
 					<input type="hidden" name="id_funcionario" id="id_funcionario" value="<?php echo $id_func ?>"> 
 					<small><div id="mensagem" align="center" class="mt-3"></div></small>					
 
-				</div>
 				
+			  </div>
+
+			<div class="modal-footer">
+
+			<li class="dropdown head-dpdn2" style="display:inline-block;">
+				<a id="botao_confirmar" href="#" class="dropdown-toggle btn btn-success" data-toggle="dropdown" aria-expanded="false">		
+					Confirmar				
+				</a>
+
+		<ul class="dropdown-menu" style="margin-left:-100px; margin-top: -100px">
+		<li>
+		<div class="notification_desc2">
+		<p>Confirmar Consulta? <a href="#" onclick="confirmar()"><span class="text-success">Sim</span></a></p>
+		</div>
+		</li>										
+		</ul>
+		</li>
+
+
+						<li class="dropdown head-dpdn2" style="display:inline-block;">
+				<a id="botao_excluir" href="#" class="dropdown-toggle btn btn-danger" data-toggle="dropdown" aria-expanded="false">		
+					Excluir				
+				</a>
+
+		<ul class="dropdown-menu" style="margin-left:-100px; margin-top: -100px">
+		<li>
+		<div class="notification_desc2">
+		<p>Confirmar Exclusão? <a href="#" onclick="excluirAg()"><span class="text-danger">Sim</span></a></p>
+		</div>
+		</li>										
+		</ul>
+		</li>
+			
 			
 
-			  <div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-				<button type="submit" class="btn btn-primary">Adicionar</button>
-			  </div>
+					<button id="btn_salvar" type="submit" class="btn btn-primary">Salvar</button>
+				</div>
+
+
+
 			</form>
 			</div>
 		</div>
 </div>
 
+
+
 <script type="text/javascript">
 	$(document).ready(function() {
 		
-		$('.sel4').select2({
+		$('.sel2').select2({
 			dropdownParent: $('#ModalAdd')
 		});
-		
 	});
 </script>
+
 
 <script type="text/javascript">
 	$(document).ready(function() {
 		var atend = "<?=$atendimento_usuario?>";
 
 		if(atend == 'Sim'){
-			$('#funcionario').val("<?=$id_usuario?>").change();
+			$('#funcionario_modal').val("<?=$id_usuario?>").change();
 		}
 		
-
-		// mudarFuncionarioModal()
+		mudarFuncionarioModal();
+		
 		
 	});
 </script>
+
+<script type="text/javascript">
+	
+	function mudarFuncionarioModal(){	
+		var func = $('#funcionario_modal').val();				
+		listarHorarios();
+		listarServicos(func);
+	}
+</script>
+
+
+
+
+<script type="text/javascript">
+	
+	function mudarData(){
+		listarHorarios();
+	}
+</script>
+
+
+
+<script type="text/javascript">
+	function listarHorarios(){
+
+		var funcionario = $('#funcionario_modal').val();		
+		var data = $('#data-modal').val();	
+		
+		$.ajax({
+			url: 'paginas/' + pag + "/listar-horarios.php",
+			method: 'POST',
+			data: {funcionario, data},
+			dataType: "text",
+
+			success:function(result){
+				$("#listar-horarios").html(result);
+			}
+		});
+	}
+</script>
+
+
+
+
+<script type="text/javascript">
+	function listarServicos(func){	
+		var serv = $("#servico").val();
+		
+		$.ajax({
+			url: 'paginas/' + pag +  "/listar-servicos.php",
+			method: 'POST',
+			data: {func},
+			dataType: "text",
+
+			success:function(result){
+				$("#servico").html(result);
+			}
+		});
+	}
+
+
+	function calcularValor(){
+		var convenio = $("#convenio").val();
+		var id_agd = $("#id_agd").val();
+
+		$.ajax({
+			url: 'paginas/' + pag +  "/calcular.php",
+			method: 'POST',
+			data: {id_agd, convenio},
+			dataType: "text",
+
+			success:function(result){				
+				$("#valor_serv_agd").val(result);
+			}
+		});
+	}
+</script>
+
+
+
+
+<script>
+
+	$("#form-text").submit(function () {
+		$('#mensagem').text('Carregando...');
+		$('#btn_salvar').hide();
+		event.preventDefault();
+		
+		var formData = new FormData(this);
+
+		$.ajax({
+			url: 'paginas/' + pag +  "/inserir.php",
+			type: 'POST',
+			data: formData,
+
+			success: function (mensagem) {
+				
+				$('#mensagem').text('');
+				$('#mensagem').removeClass()
+				if (mensagem.trim() == "Salvo com Sucesso") {                    
+					$('#btn-fechar').click();					
+					chamarCalendario();
+				} else {
+					$('#mensagem').addClass('text-danger')
+					$('#mensagem').text(mensagem)
+				}
+
+				$('#btn_salvar').show();
+
+			},
+
+			cache: false,
+			contentType: false,
+			processData: false,
+
+		});
+
+	});
+
+// 	function excluirAg(){	
+//     $('#mensagem').text('Excluindo...')
+//     $('#botao_excluir').hide();
+
+//     var id = $('#id').val();
+
+//     $.ajax({
+//         url: 'paginas/' + pag + "/excluir.php",
+//         method: 'POST',
+//         data: {id},
+//         dataType: "html",
+
+//         success:function(mensagem){
+//              //alert(mensagem)
+//             if (mensagem.trim() == "Excluído com Sucesso") { 	                
+// 	                listarHorarios();
+// 	                $('#btn-fechar').click();					
+// 					chamarCalendario();
+//             } else {
+//                 $('#mensagem').addClass('text-danger')
+//                 $('#mensagem').text(mensagem)
+//                 $('#botao_excluir').show();
+//             }
+//         }
+//     });
+// }
+
+
+// function confirmar(id){
+
+// 	var id = $('#id').val();
+
+// 		 $.ajax({
+//         url: 'paginas/' + pag + "/confirmar.php",
+//         method: 'POST',
+//         data: {id},
+//         dataType: "html",
+
+//         success:function(mensagem){
+             
+//             if (mensagem.trim() == "Confirmado com Sucesso") {  
+
+//                 listarHorarios();
+// 	                $('#btn-fechar').click();					
+// 					chamarCalendario();
+//             } else {
+//                 $('#mensagem').addClass('text-danger')
+//                 $('#mensagem').text(mensagem)
+//             }
+//         }
+//     });
+// 	}
+
+// </script>
+

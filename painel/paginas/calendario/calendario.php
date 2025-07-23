@@ -20,25 +20,28 @@
 		selectable: true,
 		selectHelper: true,
 		select: function(start, end) {
+
+			var inicio = start.format('YYYY-MM-DD');
 			
-			// $('#ModalAdd #inicio').val(moment(start).format('DD-MM-YYYY HH:mm:ss'));
-			// $('#ModalAdd #termino').val(moment(end).format('DD-MM-YYYY HH:mm:ss'));
+			$('#ModalAdd #data-modal').val(inicio);
+			listarHorarios();
 			$('#ModalAdd').modal('show');
 		},
 		eventRender: function(event, element) {
-			return;
+		
 			//alert(event.id)
 			element.bind('click', function() {
-				$('#ModalEdit #id_evento').val(event.id);
-				$('#ModalEdit #titulo').val(event.title);
-				$('#ModalEdit #descricao').val(event.description);
-				$('#ModalEdit #cor').val(event.color);
-				$('#ModalEdit #convidado').val(event.cliente);
-				$('#ModalEdit #remetente').val(event.servico);
-				$('#ModalEdit #status').val(event.status);
-				$('#ModalEdit #inicio').val(event.start.format('DD-MM-YYYY HH:mm:ss'));
+				$('#ModalAdd #myModalLabel').text('Editar Agendamento');
+				$('#ModalAdd #id').val(event.id);
+				$('#ModalAdd #cliente').val(event.cliente).change();
+				$('#ModalAdd #funcionario_modal').val(event.profissional).change();
+				$('#ModalAdd #servico').val(event.servico).change();
+				$('#ModalAdd #data_modal').val(event.start.format('YYYY-MM-DD'));
+				$('#ModalAdd #obs').val(event.description);
+				$('#ModalAdd #retorno').val(event.retorno).change();				
 				//$('#ModalEdit #termino').val(event.end.format('DD-MM-YYYY HH:mm:ss'));
-				$('#ModalEdit').modal('show');
+				listarHorarios();
+				$('#ModalAdd').modal('show');
 			});
 		},
 		eventDrop: function(event, delta, revertFunc) { 
@@ -113,13 +116,15 @@
 					{
 						id: '<?php echo $res_ini[$i_ini]['id'] ?>',
 						title: '<?php echo $nome_servico ?> / Paciente <?php echo $nome_cliente ?> / Profissional: <?php echo $profissional ?>',
-						description: '<?php echo $nome_servico ?>',
+						description: '<?php echo $res_ini[$i_ini]['obs'] ?>',
 						start: '<?php echo $start; ?>',
 						end: '<?php echo $end; ?>',
 						color: '<?php echo $cor_agd ?>',
 						cliente: '<?php echo $res_ini[$i_ini]['paciente'] ?>',
 						servico: '<?php echo $res_ini[$i_ini]['servico'] ?>',
 						status:'<?php echo $res_ini[$i_ini]['status'] ?>',
+						profissional:'<?php echo $funcionario ?>',
+						retorno:'<?php echo $res_ini[$i_ini]['retorno'] ?>',
 					},
 					<?php } ?>
 				]
