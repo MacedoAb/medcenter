@@ -1,60 +1,136 @@
 <div class="modal fade" id="ModalAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-		  <div class="modal-dialog" role="document">
+		  <div class="modal-dialog modal-lg" role="document">
 			<div class="modal-content">
 			<form class="form-horizontal" method="POST" action="evento/action/eventoAdd.php" onsubmit="return validaForm(this);">
 			
 			  <div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title" id="myModalLabel">Adicionar Evento</h4>
+				<h4 class="modal-title" id="myModalLabel">Agendar Consulta</h4>
 			  </div>
 			  <div class="modal-body">
 				
-				  <div class="form-group">
-					<label for="titulo" class="col-sm-2 control-label">Titulo</label>
-					<div class="col-sm-10">
-					  <input type="text" name="titulo" class="form-control" id="titulo" placeholder="Titulo" required>
-					</div>
-				  </div>
+				  <div class="row">
+						<div class="col-md-5">						
+							<div class="form-group"> 
+								<label>Paciente</label> 
+								<select class="form-control sel3" id="cliente" name="cliente" style="width:95%;" required> 
 
-				  <div class="form-group">
-					<label for="descricao" class="col-sm-2 control-label">Descrição</label>
-					<div class="col-sm-10">
-					  <textarea type="text" name="descricao" class="form-control" id="descricao" placeholder="Descrição"></textarea>
+									<?php 
+									$query2 = $pdo->query("SELECT * FROM pacientes ORDER BY nome asc");
+									$res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
+									$total_reg2 = @count($res2);
+									if($total_reg2 > 0){
+										for($i2=0; $i2 < $total_reg2; $i2++){
+											foreach ($res2[$i2] as $key => $value){}
+												echo '<option value="'.$res2[$i2]['id'].'">'.$res2[$i2]['nome'].' - '.$res2[$i2]['cpf'].'</option>';
+										}
+									}
+									?>
+
+
+								</select>    
+							</div>						
+						</div>
+
+
+						<div class="col-md-4 ">
+							<div class="form-group">
+							<label>Profissional </label> 			
+								<select class="form-control sel2" id="funcionario_modal" name="funcionario" style="width:95%;" onchange="mudarFuncionarioModal()"> 
+									<?php if($id_func == ""){ ?>
+									<option value="">Selecione um Profissional</option>
+									<?php 
+									$query2 = $pdo->query("SELECT * FROM usuarios where atendimento = 'Sim' ORDER BY id desc");
+									$res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
+									$total_reg2 = @count($res2);
+									if($total_reg2 > 0){
+										for($i2=0; $i2 < $total_reg2; $i2++){
+											foreach ($res2[$i2] as $key => $value){}
+												echo '<option value="'.$res2[$i2]['id'].'">'.$res2[$i2]['nome'].'</option>';
+										}
+									}
+
+								}else{
+									echo '<option value="'.$id_usuario.'">'.$nome_usuario.'</option>';
+									}
+
+									?>
+								
+
+
+								</select>   
+							</div> 	
+						</div>
+
+						<div class="col-md-3">						
+							<div class="form-group"> 
+								<label>Procedimento</label> 
+								<select class="form-control sel3" id="servico" name="servico" style="width:95%;" required> 									
+
+								</select>    
+							</div>						
+						</div>
+
 					</div>
-				  </div>
-				  
-				  <div class="form-group">
-					<label for="cor" class="col-sm-2 control-label">Cor</label>
-					<div class="col-sm-10">
-					  <select name="cor" class="form-control" id="cor">
-					  <option value="">Escolher</option>
-						  <option style="color:#0071c5" value="#0071c5">&#9724; Azul Escuro</option>
-						  <option style="color:#40E0D0" value="#40E0D0">&#9724; Turquesa</option>
-						  <option style="color:#008000" value="#008000">&#9724; Verde</option>						  
-						  <option style="color:#FFD700" value="#FFD700">&#9724; Amarelo</option>
-						  <option style="color:#FF8C00" value="#FF8C00">&#9724; Laranja</option>
-						  <option style="color:#FF0000" value="#FF0000">&#9724; Vermelho</option>
-						  <option style="color:#000" value="#000">&#9724; Preto</option>
-						  
-						</select>
+					<div class="row">						
+
+						<div class="col-md-3" id="nasc">						
+							<div class="form-group"> 
+								<label>Data </label> 
+								<input type="date" class="form-control" name="data" id="data-modal" onchange="mudarData()" style="width:95%"> 
+							</div>						
+						</div>
+
+					<div class="col-md-7">						
+						<div class="form-group"> 
+							<label>OBS <small>(Máx 100 Caracteres)</small></label> 
+							<input maxlength="100" type="text" class="form-control" name="obs" id="obs" style="width:95%">
+						</div>						
 					</div>
-				  </div>
+
+					<div class="col-md-2">						
+						<div class="form-group"> 
+							<label>Retorno</label>
+								<select class="form-control" id="retorno" name="retorno" >
+									<option value="Não">Não</option>
+									<option value="Sim">Sim</option>
+								</select>								
+						</div>						
+					</div>
+
+
+
+					</div>
+
+
+					<hr>
+					<div class="row">
+
+						<div class="col-md-12" id="nasc">						
+							<div class="form-group"> 								
+								<div id="listar-horarios">
+									<small>Selecione um Profissional ou um Procedimento</small>
+								</div>
+							</div>						
+						</div>					
+
+					</div>
+					<hr>
+
+
 
 				
-				  <div class="form-group">
-					<label for="inicio" class="col-sm-2 control-label">Inicio</label>
-					<div class="col-sm-10">
-					  <input type="text" name="inicio" class="form-control" id="inicio" required>
-					</div>
-				  </div>
-				  <div class="form-group">
-					<label for="termino" class="col-sm-2 control-label">Termino</label>
-					<div class="col-sm-10">
-					  <input type="text" name="termino" class="form-control" id="termino" required>
-					</div>
-				  </div>
+
+
+
+					<br>
+					<input type="hidden" name="id" id="id">
+					<input type="hidden" name="id_funcionario" id="id_funcionario" value="<?php echo $id_func ?>"> 
+					<small><div id="mensagem" align="center" class="mt-3"></div></small>					
+
+				</div>
 				
-			  </div>
+			
 
 			  <div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
@@ -64,3 +140,27 @@
 			</div>
 		</div>
 </div>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		
+		$('.sel4').select2({
+			dropdownParent: $('#ModalAdd')
+		});
+		
+	});
+</script>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		var atend = "<?=$atendimento_usuario?>";
+
+		if(atend == 'Sim'){
+			$('#funcionario').val("<?=$id_usuario?>").change();
+		}
+		
+
+		// mudarFuncionarioModal()
+		
+	});
+</script>
