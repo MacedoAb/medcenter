@@ -20,28 +20,25 @@
 		selectable: true,
 		selectHelper: true,
 		select: function(start, end) {
-
-			var inicio = start.format('YYYY-MM-DD');
-			
-			$('#ModalAdd #data-modal').val(inicio);
-			listarHorarios();
+			return;
+			$('#ModalAdd #inicio').val(moment(start).format('DD-MM-YYYY HH:mm:ss'));
+			$('#ModalAdd #termino').val(moment(end).format('DD-MM-YYYY HH:mm:ss'));
 			$('#ModalAdd').modal('show');
 		},
 		eventRender: function(event, element) {
-		
+			return;
 			//alert(event.id)
 			element.bind('click', function() {
-				$('#ModalAdd #myModalLabel').text('Editar Agendamento');
-				$('#ModalAdd #id').val(event.id);
-				$('#ModalAdd #cliente').val(event.cliente).change();
-				$('#ModalAdd #funcionario_modal').val(event.profissional).change();
-				$('#ModalAdd #servico').val(event.servico).change();
-				$('#ModalAdd #data_modal').val(event.start.format('YYYY-MM-DD'));
-				$('#ModalAdd #obs').val(event.description);
-				$('#ModalAdd #retorno').val(event.retorno).change();				
+				$('#ModalEdit #id_evento').val(event.id);
+				$('#ModalEdit #titulo').val(event.title);
+				$('#ModalEdit #descricao').val(event.description);
+				$('#ModalEdit #cor').val(event.color);
+				$('#ModalEdit #convidado').val(event.cliente);
+				$('#ModalEdit #remetente').val(event.servico);
+				$('#ModalEdit #status').val(event.status);
+				$('#ModalEdit #inicio').val(event.start.format('DD-MM-YYYY HH:mm:ss'));
 				//$('#ModalEdit #termino').val(event.end.format('DD-MM-YYYY HH:mm:ss'));
-				listarHorarios();
-				$('#ModalAdd').modal('show');
+				$('#ModalEdit').modal('show');
 			});
 		},
 		eventDrop: function(event, delta, revertFunc) { 
@@ -55,27 +52,27 @@
 		},
 
 		events: [
-					<?php for($i_ini=0; $i_ini < $total_reg_ini; $i_ini++){
-						$data_inicio = $res_ini[$i_ini]['data']." ".$res_ini[$i_ini]['hora'];
-						$data_final = $res_ini[$i_ini]['data']." ".$res_ini[$i_ini]['hora'];
+					<?php for($i=0; $i < $total_reg; $i++){
+						$data_inicio = $res[$i]['data']." ".$res[$i]['hora'];
+						$data_final = $res[$i]['data']." ".$res[$i]['hora'];
 
-						$hora_inicio = $res_ini[$i_ini]['hora'];
-						$hora_final = $res_ini[$i_ini]['hora'];
+						$hora_inicio = $res[$i]['hora'];
+						$hora_final = $res[$i]['hora'];
 						
 						if($hora_inicio == '00:00:00' || $hora_inicio == ''){
-							$start = $res_ini[$i_ini]['data'];
+							$start = $res[$i]['data'];
 						}else{
 							$start = $data_inicio;
 						}
 						if($hora_final == '00:00:00' || $hora_inicio == ''){
-							$end = $res_ini[$i_ini]['data'];
+							$end = $res[$i]['data'];
 						}else{
 							$end = $data_final;
 						}
 
 						
-						$paciente = $res_ini[$i_ini]['paciente'];
-						$query2 = $pdo->query("SELECT * FROM pacientes where id = '$paciente'");
+						$cliente = $res[$i]['cliente'];
+						$query2 = $pdo->query("SELECT * FROM clientes where id = '$cliente'");
 						$res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
 						if(@count($res2) > 0){
 							$nome_cliente = $res2[0]['nome'];							
@@ -85,7 +82,7 @@
 						}
 
 
-						$funcionario = $res_ini[$i_ini]['funcionario'];
+						$funcionario = $res[$i]['funcionario'];
 						$query2 = $pdo->query("SELECT * FROM usuarios where id = '$funcionario'");
 						$res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
 						if(@count($res2) > 0){
@@ -95,8 +92,8 @@
 							
 						}
 
-						$servico = $res_ini[$i_ini]['servico'];
-						$query2 = $pdo->query("SELECT * FROM procedimentos where id = '$servico'");
+						$servico = $res[$i]['servico'];
+						$query2 = $pdo->query("SELECT * FROM servicos where id = '$servico'");
 						$res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
 						if(@count($res2) > 0){
 							$nome_servico = $res2[0]['nome'];							
@@ -105,26 +102,24 @@
 							
 						}
 
-						if($res_ini[$i_ini]['status'] == "Agendado"){
+						if($res[$i]['status'] == "Agendado"){
 							$cor_agd = "#80050b";
 						}else{
-							$cor_agd = "#011436";
+							$cor_agd = "#013b11";
 						}
 
 
 					?>
 					{
-						id: '<?php echo $res_ini[$i_ini]['id'] ?>',
-						title: '<?php echo $nome_servico ?> / Paciente <?php echo $nome_cliente ?> / Profissional: <?php echo $profissional ?>',
-						description: '<?php echo $res_ini[$i_ini]['obs'] ?>',
+						id: '<?php echo $res[$i]['id'] ?>',
+						title: '<?php echo $profissional ?> / Serviço <?php echo $nome_servico ?> / Cliente <?php echo $nome_cliente ?>',
+						description: '<?php echo $nome_servico ?>',
 						start: '<?php echo $start; ?>',
 						end: '<?php echo $end; ?>',
 						color: '<?php echo $cor_agd ?>',
-						cliente: '<?php echo $res_ini[$i_ini]['paciente'] ?>',
-						servico: '<?php echo $res_ini[$i_ini]['servico'] ?>',
-						status:'<?php echo $res_ini[$i_ini]['status'] ?>',
-						profissional:'<?php echo $funcionario ?>',
-						retorno:'<?php echo $res_ini[$i_ini]['retorno'] ?>',
+						cliente: '<?php echo $res[$i]['cliente'] ?>',
+						servico: '<?php echo $res[$i]['servico'] ?>',
+						status:'<?php echo $res[$i]['status'] ?>',
 					},
 					<?php } ?>
 				]
