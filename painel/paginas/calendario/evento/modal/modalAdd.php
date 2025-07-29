@@ -152,10 +152,131 @@
 		var atend = "<?=$atendimento_usuario?>";
 
 		if(atend == 'Sim'){
-			$('#funcionario').val("<?=$id_usuario?>").change();
+			$('#funcionario_modal').val("<?=$id_usuario?>").change();
 		}		
 
-		// mudarFuncionarioModal()
+		mudarFuncionarioModal()
 		
 	});
+</script>
+
+<script type="text/javascript">
+	
+	function mudarFuncionarioModal(){	
+		var func = $('#funcionario_modal').val();	
+		
+		listarHorarios();
+		listarServicos(func);
+	}
+</script>
+
+<script type="text/javascript">
+	
+	function mudarData(){
+		var data = $('#data-modal').val();			
+		$('#data_agenda').val(data).change();
+
+		listarHorarios();
+
+	}
+</script>
+
+
+
+<script type="text/javascript">
+	function listarHorarios(){
+
+		var funcionario = $('#funcionario_modal').val();		
+		var data = $('#data_agenda').val();	
+		
+		$.ajax({
+			url: 'paginas/' + pag + "/listar-horarios.php",
+			method: 'POST',
+			data: {funcionario, data},
+			dataType: "text",
+
+			success:function(result){
+				$("#listar-horarios").html(result);
+			}
+		});
+	}
+</script>
+
+<script>
+
+	$("#form-servico").submit(function () {
+		event.preventDefault();
+		
+		var formData = new FormData(this);
+
+		var convenio = $('#convenio').val();
+		var pgto = $('#pgto').val();
+
+		if(pgto == "Convênio" && convenio == ""){
+			alert("Selecione um Convênio ou uma forma de pagamento");
+			return;
+		}
+
+		$.ajax({
+			url: 'paginas/' + pag +  "/inserir-servico.php",
+			type: 'POST',
+			data: formData,
+
+			success: function (mensagem) {
+				$('#mensagem-servico').text('');
+				$('#mensagem-servico').removeClass()
+				if (mensagem.trim() == "Salvo com Sucesso") {                    
+					$('#btn-fechar-servico').click();
+					listar();
+				} else {
+					$('#mensagem-servico').addClass('text-danger')
+					$('#mensagem-servico').text(mensagem)
+				}
+
+			},
+
+			cache: false,
+			contentType: false,
+			processData: false,
+
+		});
+
+	});
+
+</script>
+
+
+
+<script type="text/javascript">
+	function listarServicos(func){	
+		var serv = $("#servico").val();
+		
+		$.ajax({
+			url: 'paginas/' + pag +  "/listar-servicos.php",
+			method: 'POST',
+			data: {func},
+			dataType: "text",
+
+			success:function(result){
+				$("#servico").html(result);
+			}
+		});
+	}
+
+
+	function calcularValor(){
+		var convenio = $("#convenio").val();
+		var id_agd = $("#id_agd").val();
+
+		$.ajax({
+			url: 'paginas/' + pag +  "/calcular.php",
+			method: 'POST',
+			data: {id_agd, convenio},
+			dataType: "text",
+
+			success:function(result){				
+				$("#valor_serv_agd").val(result);
+			}
+		});
+	}
 </script>

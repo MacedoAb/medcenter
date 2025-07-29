@@ -21,8 +21,9 @@
 		selectHelper: true,
 		select: function(start, end) {
 			
-			// $('#ModalAdd #inicio').val(moment(start).format('DD-MM-YYYY HH:mm:ss'));
-			// $('#ModalAdd #termino').val(moment(end).format('DD-MM-YYYY HH:mm:ss'));
+			var inicio = start.format('YYYY-MM-DD');
+			$('#ModalAdd #data-modal').val(inicio);
+			listarHorarios()
 			$('#ModalAdd').modal('show');
 		},
 		eventRender: function(event, element) {
