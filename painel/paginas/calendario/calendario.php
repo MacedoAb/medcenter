@@ -20,9 +20,9 @@
 		selectable: true,
 		selectHelper: true,
 		select: function(start, end) {
-			return;
-			$('#ModalAdd #inicio').val(moment(start).format('DD-MM-YYYY HH:mm:ss'));
-			$('#ModalAdd #termino').val(moment(end).format('DD-MM-YYYY HH:mm:ss'));
+			
+			// $('#ModalAdd #inicio').val(moment(start).format('DD-MM-YYYY HH:mm:ss'));
+			// $('#ModalAdd #termino').val(moment(end).format('DD-MM-YYYY HH:mm:ss'));
 			$('#ModalAdd').modal('show');
 		},
 		eventRender: function(event, element) {
@@ -52,27 +52,27 @@
 		},
 
 		events: [
-					<?php for($i=0; $i < $total_reg; $i++){
-						$data_inicio = $res[$i]['data']." ".$res[$i]['hora'];
-						$data_final = $res[$i]['data']." ".$res[$i]['hora'];
+					<?php for($i_ini=0; $i_ini < $total_reg_ini; $i_ini++){
+						$data_inicio = $res_ini[$i_ini]['data']." ".$res_ini[$i_ini]['hora'];
+						$data_final = $res_ini[$i_ini]['data']." ".$res_ini[$i_ini]['hora'];
 
-						$hora_inicio = $res[$i]['hora'];
-						$hora_final = $res[$i]['hora'];
+						$hora_inicio = $res_ini[$i_ini]['hora'];
+						$hora_final = $res_ini[$i_ini]['hora'];
 						
 						if($hora_inicio == '00:00:00' || $hora_inicio == ''){
-							$start = $res[$i]['data'];
+							$start = $res_ini[$i_ini]['data'];
 						}else{
 							$start = $data_inicio;
 						}
 						if($hora_final == '00:00:00' || $hora_inicio == ''){
-							$end = $res[$i]['data'];
+							$end = $res_ini[$i_ini]['data'];
 						}else{
 							$end = $data_final;
 						}
 
 						
-						$cliente = $res[$i]['cliente'];
-						$query2 = $pdo->query("SELECT * FROM clientes where id = '$cliente'");
+						$paciente = $res_ini[$i_ini]['paciente'];
+						$query2 = $pdo->query("SELECT * FROM pacientes where id = '$paciente'");
 						$res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
 						if(@count($res2) > 0){
 							$nome_cliente = $res2[0]['nome'];							
@@ -82,7 +82,7 @@
 						}
 
 
-						$funcionario = $res[$i]['funcionario'];
+						$funcionario = $res_ini[$i_ini]['funcionario'];
 						$query2 = $pdo->query("SELECT * FROM usuarios where id = '$funcionario'");
 						$res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
 						if(@count($res2) > 0){
@@ -92,8 +92,8 @@
 							
 						}
 
-						$servico = $res[$i]['servico'];
-						$query2 = $pdo->query("SELECT * FROM servicos where id = '$servico'");
+						$servico = $res_ini[$i_ini]['servico'];
+						$query2 = $pdo->query("SELECT * FROM procedimentos where id = '$servico'");
 						$res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
 						if(@count($res2) > 0){
 							$nome_servico = $res2[0]['nome'];							
@@ -102,24 +102,24 @@
 							
 						}
 
-						if($res[$i]['status'] == "Agendado"){
+						if($res_ini[$i_ini]['status'] == "Agendado"){
 							$cor_agd = "#80050b";
 						}else{
-							$cor_agd = "#013b11";
+							$cor_agd = "#011436";
 						}
 
 
 					?>
 					{
-						id: '<?php echo $res[$i]['id'] ?>',
-						title: '<?php echo $profissional ?> / Serviço <?php echo $nome_servico ?> / Cliente <?php echo $nome_cliente ?>',
+						id: '<?php echo $res_ini[$i_ini]['id'] ?>',
+						title: '<?php echo $nome_servico ?> / Paciente <?php echo $nome_cliente ?> / Profissional: <?php echo $profissional ?>',
 						description: '<?php echo $nome_servico ?>',
 						start: '<?php echo $start; ?>',
 						end: '<?php echo $end; ?>',
 						color: '<?php echo $cor_agd ?>',
-						cliente: '<?php echo $res[$i]['cliente'] ?>',
-						servico: '<?php echo $res[$i]['servico'] ?>',
-						status:'<?php echo $res[$i]['status'] ?>',
+						cliente: '<?php echo $res_ini[$i_ini]['paciente'] ?>',
+						servico: '<?php echo $res_ini[$i_ini]['servico'] ?>',
+						status:'<?php echo $res_ini[$i_ini]['status'] ?>',
 					},
 					<?php } ?>
 				]
