@@ -13,7 +13,7 @@
 						<div class="col-md-5">						
 							<div class="form-group"> 
 								<label>Paciente</label> 
-								<select class="form-control sel3" id="cliente" name="cliente" style="width:95%;" required> 
+								<select class="form-control sel2" id="cliente" name="cliente" style="width:95%;" required> 
 
 									<?php 
 									$query2 = $pdo->query("SELECT * FROM pacientes ORDER BY nome asc");
@@ -65,7 +65,7 @@
 						<div class="col-md-3">						
 							<div class="form-group"> 
 								<label>Procedimento</label> 
-								<select class="form-control sel3" id="servico" name="servico" style="width:100%;" required> 									
+								<select class="form-control sel2" id="servico" name="servico" style="width:100%;" required> 									
 
 								</select>    
 							</div>						
@@ -137,3 +137,25 @@
 			</div>
 		</div>
 </div>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		
+		$('.sel2').select2({
+			dropdownParent: $('#ModalAdd')
+		});
+	});
+</script>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		var atend = "<?=$atendimento_usuario?>";
+
+		if(atend == 'Sim'){
+			$('#funcionario').val("<?=$id_usuario?>").change();
+		}		
+
+		// mudarFuncionarioModal()
+		
+	});
+</script>

@@ -59,6 +59,8 @@
 		<script src='paginas/calendario/locale/pt-br.js'></script>
 		<?php include ('paginas/calendario/calendario.php'); ?>
 		
-<script type="text/javascript">var pag = "<?=$pag?>"</script>
+<script type="text/javascript">var pag = "agendamentos"</script>
 <script src="js/ajax.js"></script>
+
+
 		
